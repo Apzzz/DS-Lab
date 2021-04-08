@@ -1,0 +1,89 @@
+//DOUBLE LL
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+struct node
+{
+  char data;
+  struct node *next;
+  struct node *pre;
+} *ptr, *f1, *f2;
+struct node *head = NULL;
+struct node *tail = NULL;
+
+void
+display ()
+{
+  if (head == NULL)
+    printf ("Underflow \n");
+  else
+    {
+      printf ("The string is \n");
+      ptr = head;
+      do
+	{
+	  printf ("%c", ptr->data);
+	  ptr = ptr->next;
+	}
+      while (ptr!=NULL);
+    }
+  printf ("\n\n");
+}
+
+void
+insert (char ch)
+{
+  struct node *temp = (struct node *) malloc (sizeof (struct node *));
+  temp->data = ch;
+  if (head == NULL)
+    {
+      head = temp;
+      head->next = head->pre = head;
+      tail = head;
+    }
+  else
+    {
+      tail->next = temp;
+      temp->pre = tail;
+      tail = temp;
+      tail->next=NULL;
+    }
+}
+
+void
+check (int l)
+{
+  int c = 0;
+  f1 = head;
+  f2 = tail;
+  for (int j = 0; j < l / 2; j++)
+    {
+      if (f1->data != f2->data)
+	{
+	  c++;
+	  break;
+	}
+      f1 = f1->next;
+      f2 = f2->pre;
+    }
+  if (c == 0)
+    printf ("The string is palindrome \n");
+  else
+    printf ("The string is not palindrome \n");
+}
+
+void
+main ()
+{
+  char s[100];
+  int l;
+  printf ("Enter the string\t");
+  gets (s);
+  for (int i = 0; i < strlen (s); i++)
+    insert (s[i]);
+  l = strlen (s);
+  display();
+  check (l);
+}
