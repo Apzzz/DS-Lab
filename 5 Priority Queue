@@ -1,0 +1,59 @@
+// PRIORITY Queue
+
+#include<stdio.h>
+
+struct prio
+{
+  int data, prior;
+} p[10], temp;
+
+void
+main ()
+{
+  int x, rear = -1, front = -1, i,y;
+  printf("Enter the size ");
+  scanf("%d",&y);
+  do
+    {
+      printf ("\nEnter 1 to add 2 to delete 0 to exit ");
+      scanf ("%d", &x);
+      if (x == 1)
+	{
+	  if (rear == y-1)
+	    printf ("Queue overflow\n");
+	  else
+	    {
+	      rear++;
+	      printf ("Enter the element and priority ");
+	      scanf ("%d%d", &p[rear].data, &p[rear].prior);
+	      for (i = rear; i > front + 1; i--)
+		{
+		  if (p[i].prior > p[i - 1].prior)
+		    {
+		      temp = p[i - 1];
+		      p[i - 1] = p[i];
+		      p[i] = temp;
+		    }
+		}
+	      printf ("The queue is \n");
+	      for (i = front + 1; i <= rear; i++)
+		printf ("%d\t%d\n", p[i].data, p[i].prior);
+	    }
+	}
+      if (x == 2)
+	{
+	  if (front == rear)
+	    printf ("\nQueue underflow");
+	  else
+	    {
+	      front++;
+	      printf ("\nThe deleted element is %d %d \n", p[front].data,
+		      p[front].prior);
+	      printf ("\nThe queue is \n");
+	      for (i = front + 1; i <= rear; i++)
+		printf ("%d\t%d\n", p[i].data, p[i].prior);
+	    }
+	}
+    }
+  while (x != 0);
+}
