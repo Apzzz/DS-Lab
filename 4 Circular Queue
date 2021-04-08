@@ -1,0 +1,60 @@
+// Circular queue
+
+#include<stdio.h>
+
+int a[10], front = -1, rear = -1, y;
+void
+display ()
+{
+  int i;
+  if (front==rear)
+    printf ("\nQueue underflow");
+  else
+    {
+      printf ("\nThe queue is \t");
+      for (i = front+1; i != rear; i = (i + 1) % y)
+	printf ("%d  \t", a[i]);
+      printf ("%d ", a[i]);
+    }
+}
+
+void
+main ()
+{
+  int x, i;
+  printf ("Enter the size ");
+  scanf ("%d", &y);
+  do
+    {
+      printf ("\nEnter 1 to add 2 to delete 0 to exit ");
+      scanf ("%d", &x);
+      if (x == 1)
+	{
+	  
+	if(front==(rear+1)%y)
+		printf("Queue overflow\n");
+	else
+	{
+	   	rear=(rear+1)%y;
+		printf("\nEnter the element to push\n");
+		scanf("%d", &a[rear]);
+		display();
+	}
+	}
+      if (x == 2)
+	{
+	  	if(front==rear)
+		printf("Queue underflow\n");
+	else
+	{
+		printf("\nPopped element %d from queue\n", a[front+1]);
+		if(rear==1)
+			front=rear=0;
+		else
+			front=(front+1)%y;
+		display();
+	}
+	}
+    }
+  while (x != 0);
+}
