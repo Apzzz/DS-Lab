@@ -1,0 +1,130 @@
+//Graph
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int g[15][15], n = 13;
+int c[13];
+int q[15], rear = 0, front = 0;
+int state[13];
+
+void
+make (int x, int y)
+{
+  g[x][y] = g[y][x] = 1;
+}
+
+void
+dfs (int x)
+{
+  printf ("%d  ", x);
+  c[x] = 1;
+  for (int i = 0; i < n; i++)
+    {
+      if (i == x)
+	continue;
+      if (g[x][i] == 1)
+	{
+	  if (c[i] == 1)
+	    continue;
+	  dfs (i);
+	}
+    }
+}
+
+void
+in_qu (int v)
+{
+  if (rear != 12)
+    {
+      if (front == 0)
+	front = 1;
+      rear++;
+      q[rear] = v;
+    }
+}
+
+int
+isEmpty ()
+{
+  if (front == -1 || front > rear)
+    return 1;
+  else
+    return 0;
+}
+
+int
+del ()
+{
+  int deleted;
+  if (front == 0 || front > rear)
+    {
+      printf ("Queue Underflow\n");
+      exit (0);
+    }
+  else
+    {
+      deleted = q[front];
+      front++;
+      return deleted;
+    }
+}
+
+void
+bfs (int ve)
+{
+  int i;
+  in_qu (ve);
+  state[ve] = 2;
+  while (!isEmpty ())
+    {
+      ve = del ();
+      state[ve] = 3;
+      printf ("%i ", ve);
+      for (i = 0; i < 13; i++)
+	{
+	  if (g[ve][i] == 1 && state[i] == 1)
+	    {
+	      in_qu (i);
+	      state[i] = 2;
+	    }
+	}
+    }
+}
+
+void
+main ()
+{
+  int x;
+
+  make (1, 2);
+  make (1, 4);
+  make (2, 3);
+  make (2, 4);
+  make (2, 6);
+  make (4, 5);
+  make (4, 7);
+  make (6, 3);
+  make (6, 8);
+  make (6, 9);
+  make (7, 5);
+  make (7, 10);
+  make (7, 11);
+  make (9, 8);
+  make (9, 10);
+  make (9, 12);
+  make (10, 11);
+  make (10, 12);
+
+  printf ("Enter the starting position of DFS ");
+  scanf ("%d", &x);
+  printf ("DFS :");
+  dfs (x);
+
+  for (int kk = 0; kk < 13; kk++)
+    state[kk] = 1;
+  printf ("\nEnter the starting position of BFS ");
+  scanf ("%d", &x);
+  printf ("BFS :");
+  bfs (x);
+}
