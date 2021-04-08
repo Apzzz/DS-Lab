@@ -1,0 +1,46 @@
+// Stacks
+
+#include<stdio.h>
+
+void
+main ()
+{
+  int a[10], x, top = -1, i,y;
+  printf("Enter the size ");
+  scanf("%d",&y);
+  do
+    {
+      printf ("\nEnter 1 to add 2 to delete 0 to exit ");
+      scanf ("%d", &x);
+      if (x == 1)
+	{
+	  if (top == y-1)
+	    printf ("Stack overflow\n");
+	  else
+	    {
+	      top++;
+	      printf ("Enter the element ");
+	      scanf ("%d", &a[top]);
+	    }
+
+	  printf ("\nThe stack is \n");
+	  for (i = 0; i <= top; i++)
+	    printf ("%d\t", a[i]);
+	}
+      if (x == 2)
+	{
+	  if (top == -1)
+	    printf ("\nStack underflow\n");
+	  else
+	    {
+	      printf ("The deleted element is %d\n", a[top]);
+	      top--;
+	  printf ("\nThe stack is \n");
+	  for (i = 0; i <= top; i++)
+	    printf ("%d\t", a[i]);
+	    }
+	}
+    }
+  while (x != 0);
+}
+
