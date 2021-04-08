@@ -1,0 +1,241 @@
+//binary search tree
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct tree
+{
+  int data;
+  struct tree *l;
+  struct tree *r;
+} *new = NULL, *t1, *t2, *t3;
+struct tree *root = NULL;
+
+void
+search (struct tree *t)
+{
+  if ((new->data > t->data) && (t->r != NULL))
+    search (t->r);
+  else if ((new->data > t->data) && (t->r == NULL))
+    t->r = new;
+  else if ((new->data < t->data) && (t->l != NULL))
+    search (t->l);
+  else if ((new->data < t->data) && (t->l == NULL))
+    t->l = new;
+}
+
+void
+insert (int d)
+{
+  new = (struct tree *) malloc (sizeof (struct tree *));
+  if (new == NULL)
+    printf ("Failed to allocate memory \n");
+
+  else
+    {
+      new->data = d;
+      new->l = new->r = NULL;
+      if (root == NULL)
+	root = new;
+      else
+	search (root);
+    }
+}
+
+void
+inorder (struct tree *t)
+{
+  if (root == NULL)
+    printf ("List empty \n");
+
+  if (t->l != NULL)
+    inorder (t->l);
+  printf ("%d ", t->data);
+  if (t->r != NULL)
+    inorder (t->r);
+}
+
+void
+preorder (struct tree *t)
+{
+
+  if (root == NULL)
+    printf ("List empty \n");
+
+  printf ("%d ", t->data);
+  if (t->l != NULL)
+    preorder (t->l);
+  if (t->r != NULL)
+    preorder (t->r);
+}
+
+void
+postorder (struct tree *t)
+{
+
+  if (root == NULL)
+    printf ("List empty \n");
+
+  if (t->l != NULL)
+    postorder (t->l);
+  if (t->r != NULL)
+    postorder (t->r);
+  printf ("%d ", t->data);
+}
+
+int
+large (struct tree *t2)
+{
+  while (t2->r != NULL)
+    {
+      t3 = t2;
+      t2 = t2->r;
+    }
+  t3->r = NULL;
+  return t2->data;
+}
+
+int
+small (struct tree *t2)
+{
+  while (t2->l != NULL)
+    {
+      t3 = t2;
+      t2 = t2->l;
+    }
+  t3->l = NULL;
+  return t2->data;
+}
+
+void
+del (struct tree *t)
+{
+  if (t->l == NULL && t->r == NULL)
+    {
+        if(t1==t)
+        root=NULL;
+     else if (t1->r == t)
+	t1->r = NULL;
+      else
+	t1->l = NULL;
+    }
+  else if (t->l == NULL)
+    {
+      if (t1 == t)
+	{
+	  root = t->r;
+	  t1 = root;
+	}
+      else if (t1->r == t)
+	t1->r = t->r;
+      else
+	t1->l = t->r;
+
+      t = NULL;
+      free (t);
+    }
+  else if (t->r == NULL)
+    {
+      if (t1 == t)
+	{
+	  root = t->l;
+	  t1 = root;
+	}
+      else if (t1->r == t)
+	t1->r = t->l;
+      else
+	t1->l = t->l;
+
+      t = NULL;
+      free (t);
+    }
+  else
+    {
+      int k;
+      if (t->r == NULL)
+	{
+	  k = large (t->l);
+	  t->data = k;
+	}
+      else
+	{
+	  k = small (t->r);
+	  t->data = k;
+	}
+    }
+}
+
+void
+ser (int d, struct tree *t)
+{
+  if (d > t->data && t->r == NULL)
+    printf ("Data not found \n");
+  else if (d < t->data && t->l == NULL)
+    printf ("Data not found \n");
+  else if (d > t->data)
+    {
+      t1 = t;
+      ser (d, t->r);
+    }
+  else if (d < t->data)
+    {
+      t1 = t;
+      ser (d, t->l);
+    }
+  else if (d == t->data)
+    del (t);
+}
+
+void
+delete ()
+{
+  if (root == NULL)
+    printf ("No element to be deleted \n");
+  else
+    {
+      int del;
+      printf ("Enter the data to be deleted ");
+      scanf ("%d", &del);
+
+      t1 = t2 = root;
+      ser (del, root);
+    }
+}
+
+void
+main ()
+{
+  int x, d;
+
+  do
+    {
+      printf
+	("Enter your choice \n1 - Insert a node \n2 - Inorder traversal \n3 - Preorder traversal \n4 - Postorder traversal \n5 - Delete a node \n0 - Exit \t");
+      scanf ("%d", &x);
+
+      switch (x)
+	{
+	case 1:
+	  printf ("Enter the data ");
+	  scanf ("%d", &d);
+	  insert (d);
+	  break;
+	case 2:
+	  inorder (root);
+	  printf ("\n");
+	  break;
+	case 3:
+	  preorder (root);
+	  printf ("\n");
+	  break;
+	case 4:
+	  postorder (root);
+	  printf ("\n");
+	  break;
+	case 5:
+	  delete ();
+	  break;
+	}
+    }
+  while (x != 0);
+}
