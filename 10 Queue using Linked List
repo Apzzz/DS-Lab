@@ -1,0 +1,94 @@
+//Queue Linked list 
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+  int data;
+  struct node *next;
+} *ptr, *del;
+struct node *f = NULL;
+struct node *r = NULL;
+
+void
+display ()
+{
+  if (f == NULL)
+    printf ("Underflow \n");
+  else
+    {
+      printf ("The list is \n");
+      ptr = f;
+      while (ptr != NULL)
+	{
+	  printf ("%d \t", ptr->data);
+	  ptr = ptr->next;
+	}
+      printf ("\n\n");
+    }
+}
+
+void
+insert (int x)
+{
+  struct node *new = (struct node *) malloc (sizeof (struct node *));
+  if (new == NULL)
+    printf ("Failed to allocate memory \n");
+  else
+    {
+      new->data = x;
+      new->next = NULL;
+      if (f == NULL)
+	f = r = new;
+      else
+	{
+	  r->next = new;
+	  r = new;
+	}
+    }
+  display ();
+}
+
+void
+delete ()
+{
+  if (f == NULL)
+    printf ("Underflow \n");
+  else
+    {
+      del = f;
+      f = f->next;
+      printf ("Deleted element is %d \n", del->data);
+      free (del);
+      display ();
+    }
+}
+
+void
+main ()
+{
+  int x, y;
+  do
+    {
+      printf
+	("Enter your choice \n1- Insert \n2- Delete \n3- Display \n0- Exit \t");
+      scanf ("%d", &y);
+      switch (y)
+	{
+	case 1:
+	  printf ("Enter the element ");
+	  scanf ("%d", &x);
+	  insert (x);
+	  break;
+	case 2:
+	  delete ();
+	  break;
+	case 3:
+	  display ();
+	  break;
+
+	}
+    }
+  while (y != 0);
+}
