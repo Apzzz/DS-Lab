@@ -1,0 +1,104 @@
+//Hash Table
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int size = 10;
+
+struct node
+{
+  int data;
+  struct node *next;
+}*ptr;
+struct node *hash[10] = { NULL };
+
+void
+insert ()
+{
+  int d, index;
+  printf ("Enter the element  ");
+  scanf ("%d", &d);
+
+  struct node *newnode = (struct node *) malloc (sizeof (struct node));
+  newnode->data = d;
+  newnode->next = NULL;
+
+  index = d % size;
+  if (hash[index] == NULL)
+    hash[index] = newnode;
+  else
+    {
+  for (ptr = hash[index]; ptr->next != NULL; ptr = ptr->next);
+      ptr->next = newnode;
+    }
+}
+
+void
+display ()
+{
+  for (int i = 0; i < size; i++)
+    {
+      printf ("\nAt index %d :", i);
+      if (hash[i] == NULL)
+	printf ("No entries ");
+      else
+	{
+	  for (ptr = hash[i]; ptr != NULL; ptr = ptr->next)
+	    printf ("%d \t", ptr->data);
+	}
+    }
+    printf("\n");
+}
+
+void
+search ()
+{
+  int key, index;
+  printf ("Enter the element to be searched  ");
+  scanf ("%d", &key);
+  index = key % size;
+
+  if (hash[index] == NULL)
+    printf ("Element not found \n");
+  else
+    {
+      for (ptr = hash[index]; ptr != NULL; ptr = ptr->next)
+	{
+	  if (ptr->data == key)
+	    {
+	      printf ("Element found at index %d\n",index);
+	      break;
+	    }
+	}
+      if (ptr == NULL)
+	printf ("Element not found \n");
+    }
+}
+
+void
+main ()
+{
+  int x;
+  while (1)
+    {
+      printf
+	("Enter your choice \n1 - Insert element \n2 - Display table \n3 - Search an element \n0 - Exit \t");
+      scanf ("%d", &x);
+      switch (x)
+	{
+	case 1:
+	  insert ();
+	  break;
+	case 2:
+	  display ();
+	  break;
+	case 3:
+	  search ();
+	  break;
+	case 0:
+	  exit (0);
+	default:
+	  printf ("Invalid choice \n");
+	}
+    }
+}
