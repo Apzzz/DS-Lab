@@ -1,0 +1,93 @@
+//Mergesort
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+struct student
+{
+  char name[50];
+  float h;
+  int w;
+} s[10];
+
+void
+merge (struct student x[], int n)
+{
+  struct student aux[n];
+  int i, j, k, l1, l2, size, u1, u2;
+  size = 1;
+  while (size < n)
+    {
+      l1 = 0;
+      k = 0;
+      while (l1 + size < n)
+	{
+	  l2 = l1 + size;
+	  u1 = l2 - 1;
+	  u2 = (l2 + size - 1 < n) ? (l2 + size - 1) : n - 1;
+	  for (i = l1, j = l2; i <= u1 && j <= u2; k++)
+	    {
+	      if (x[i].h <= x[j].h)
+		aux[k] = x[i++];
+	      else
+		aux[k] = x[j++];
+	    }
+	  while (i <= u1)
+	    {
+	      aux[k++] = x[i++];
+	    }
+	  for (; j <= u2; k++)
+	    aux[k] = x[j++];
+	  l1 = u2 + 1;
+	}
+      for (i = l1; k < n; i++)
+	aux[k++] = x[i];
+      for (i = 0; i < n; i++)
+	x[i] = aux[i];
+      size *= 2;
+    }
+}
+
+void
+main ()
+{
+  int i = 0, n;
+  FILE *fp;
+
+  printf ("Contents of original file \n");
+  fp = fopen ("original.txt", "r");
+  char b[50];
+  while (!feof (fp))
+    {
+      fscanf (fp, "%s %s %f %d", &s[i].name, &b, &s[i].h, &s[i].w);
+      strcat (s[i].name, " ");
+      strcat (s[i].name, b);
+      printf ("Name :%s\tHeight :%.2f\tWeight :%d\n", s[i].name, s[i].h,
+	      s[i].w);
+      i++;
+    }
+  n = i;
+  fclose (fp);
+  merge (s, n);
+
+  fp = fopen ("copy.txt", "w");
+  for (i = 0; i < n; i++)
+    fprintf (fp, "%s  %.2f %d\n", s[i].name, s[i].h, s[i].w);
+  fclose (fp);
+
+  printf ("Contents of copy file after sort\n");
+  fp = fopen ("copy.txt", "r");
+  for (i = 0; i < n; i++)
+    {
+/*      fread (&s[i], sizeof (s[i]), 1, fp);
+      printf ("Name :%s\tHeight :%.2f\tWeight :%d\n", s[i].name, s[i].h,
+	      s[i].w);*/
+	      fscanf (fp, "%s %s %f %d", &s[i].name, &b, &s[i].h, &s[i].w);
+      strcat (s[i].name, " ");
+      strcat (s[i].name, b);
+      printf ("Name :%s\tHeight :%.2f\tWeight :%d\n", s[i].name, s[i].h,
+	      s[i].w);
+    }
+  fclose (fp);
+}
