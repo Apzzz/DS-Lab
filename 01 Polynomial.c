@@ -1,4 +1,4 @@
-// polynomial program 
+// program to add two polynomials 
 
 #include <stdio.h>
 
