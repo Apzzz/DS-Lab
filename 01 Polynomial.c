@@ -1,4 +1,4 @@
-// polynomial
+// polynomial program 
 
 #include <stdio.h>
 
