@@ -1,4 +1,5 @@
-//Binarytree
+//Binarytree using linked list
+//Author: APARNA DINESH
 
 #include<stdio.h>
 #include<stdlib.h>
