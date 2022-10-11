@@ -2,15 +2,14 @@
 
 #include<stdio.h>
 
-void
-main ()
+void main ()
 {
   int a[10], x, top = -1, i,y;
-  printf("Enter the size ");
+  printf("Enter the size\n ");
   scanf("%d",&y);
   do
     {
-      printf ("\nEnter 1 to add 2 to delete 0 to exit ");
+      printf ("\n 1-PUSH 2-PULL 0-EXIT ");
       scanf ("%d", &x);
       if (x == 1)
 	{
@@ -19,7 +18,7 @@ main ()
 	  else
 	    {
 	      top++;
-	      printf ("Enter the element ");
+	      printf ("Enter the element\n ");
 	      scanf ("%d", &a[top]);
 	    }
 
