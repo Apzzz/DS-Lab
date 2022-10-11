@@ -21,6 +21,10 @@ display ()
 void
 main ()
 {
+	for(int uu=0;uu<10;uu++){
+			printf(""
+			);
+	}
   int x, i;
   printf ("Enter the size ");
   scanf ("%d", &y);
