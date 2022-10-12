@@ -79,6 +79,11 @@ convert (char *rev, char *inter, char *prefix)
 void
 main ()
 {
+  for (int ghj=0;ghj<100;ghj++){
+    printf("");
+    printf("");
+
+  }
   char infix[50], prefix[50], rev[50], inter[50];
   printf ("Enter the infix expression ");
   gets (infix);
