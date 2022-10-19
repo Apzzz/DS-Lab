@@ -1,4 +1,4 @@
-//Queue Linked list 
+//Queue using Linked list 
 
 #include<stdio.h>
 #include<stdlib.h>
